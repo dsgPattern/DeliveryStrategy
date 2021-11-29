@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Linq;
 
 namespace DeliveryStrategy
 {
-    class Cart
+    class StoreCheckout
     {
         private Order _order;
         private IDeliveryCostCalculator _deliveryCostCalculator;
 
-        public Cart(Order order)
+        public StoreCheckout(Order order)
         {
             _order = order;
         }
@@ -21,8 +19,8 @@ namespace DeliveryStrategy
 
         public double GetTotalCost()
         {
-            //Order has total cost produselor
-            var totalProductsCost = 100;
+            //Order has total cost of products
+            var totalProductsCost = _order.Products.Sum(x => x.Price);
             var totalAmount = totalProductsCost + _deliveryCostCalculator.GetShippingCost(_order);
             return totalAmount;
         }
